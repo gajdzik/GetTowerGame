@@ -11,7 +11,10 @@ public class AndroidLauncher extends AndroidApplication {
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-		// TODO change orientation
+		// TODO change orientation in AndroidManifest.xml
+		// android:screenOrientation="landscape"
+		// android:screenOrientation="portrait"
+		// android:screenOrientation="sensor"
 		initialize(new GetTowerGameClass(), config);
 	}
 }
