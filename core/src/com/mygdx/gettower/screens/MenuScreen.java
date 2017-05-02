@@ -73,6 +73,7 @@ public class MenuScreen extends AbstractScreen
         exitButton.setHeight(120);
         exitButton.setX(150);
         exitButton.setY(100);
+        exitButton.setDebug(true);
         stage.addActor(exitButton);
         exitButton.addListener(new ClickListener()
         {
@@ -96,8 +97,8 @@ public class MenuScreen extends AbstractScreen
         change_avatar.draw(spriteBatch,"CHANGE AVATAR", 150, 300 );
         ranking.draw(spriteBatch,"RANKING", 150, 200 );
         exit.draw(spriteBatch,"EXIT", 150, 100 );
-    //    exitButton.draw(spriteBatch,1);
-       // stage.draw();
+        //    TODO: When adds stage.draw(), exit.draw is missing!? why?
+        // stage.draw();
         spriteBatch.end();
     }
 

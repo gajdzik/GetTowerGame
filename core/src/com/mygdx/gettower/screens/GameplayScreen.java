@@ -14,6 +14,7 @@ package com.mygdx.gettower.screens;
         import com.mygdx.gettower.entities.Platform;
         import com.mygdx.gettower.entities.Player;
         import com.mygdx.gettower.GetTowerGameClass;
+        import com.mygdx.gettower.tables.Highscore;
 
 public class GameplayScreen extends AbstractScreen
 {
@@ -40,6 +41,7 @@ public class GameplayScreen extends AbstractScreen
     private double acceleration;
     private boolean acceleration_flag;
     private Preferences prefs;
+    private Highscore highscore;
 
     public GameplayScreen(GetTowerGameClass game)
     {
@@ -92,6 +94,7 @@ public class GameplayScreen extends AbstractScreen
     {
         leftButton = new Button(new ButtonStyle());
         setButton(leftButton, 160, 120, 0, -90);
+        leftButton.setDebug(true);
         stage.addActor(leftButton);
         leftButton.addListener(new ClickListener()
         {
