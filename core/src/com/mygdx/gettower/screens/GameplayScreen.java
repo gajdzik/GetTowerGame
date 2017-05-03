@@ -3,6 +3,7 @@ package com.mygdx.gettower.screens;
         import com.badlogic.gdx.Gdx;
         import com.badlogic.gdx.Preferences;
         import com.badlogic.gdx.audio.Music;
+        import com.badlogic.gdx.files.FileHandle;
         import com.badlogic.gdx.graphics.g2d.BitmapFont;
         import com.badlogic.gdx.math.MathUtils;
         import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -11,10 +12,18 @@ package com.mygdx.gettower.screens;
         import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
         import com.badlogic.gdx.utils.Array;
 
+        import com.badlogic.gdx.utils.Json;
         import com.mygdx.gettower.entities.Platform;
         import com.mygdx.gettower.entities.Player;
         import com.mygdx.gettower.GetTowerGameClass;
         import com.mygdx.gettower.tables.Highscore;
+        import com.mygdx.gettower.tables.HighscoreArray;
+
+// TODO: ADD TIMER
+// TODO: ADD TRUE HIGHSCORES
+// TODO: ADD RANKING
+// TODO: ADD RANDOM SIZE OF PLATFORM (EG. 50-200)
+// TODO: REFACTOR AND BETTER LOOK
 
 public class GameplayScreen extends AbstractScreen
 {
@@ -42,6 +51,9 @@ public class GameplayScreen extends AbstractScreen
     private boolean acceleration_flag;
     private Preferences prefs;
     private Highscore highscore;
+    private FileHandle file_handle;
+    private Json json;
+    private HighscoreArray highscore_array;
 
     public GameplayScreen(GetTowerGameClass game)
     {
@@ -68,6 +80,19 @@ public class GameplayScreen extends AbstractScreen
         acceleration_flag = true;
         prefs = Gdx.app.getPreferences(PREF_GAME);
         best_score = prefs.getInteger(PREF_BEST_SCORE);
+        highscore = new Highscore(1,2,3);
+        file_handle = Gdx.files.local("highscores.json");
+        json = new Json();
+        highscore_array = new HighscoreArray();
+        if (file_handle.length() > 0)
+            highscore_array = json.fromJson(highscore_array.getClass(), file_handle.readString());
+
+        // JUST FOR TESTS
+        for (Highscore hs : highscore_array.getArray_highscore())
+        {
+            System.out.print("platform = "+hs.getPlatform()+" score = "+hs.getScore()+" time = "+ hs.getTime()+"\n");
+        }
+
     }
 
     private void initPlatforms()
@@ -165,6 +190,8 @@ public class GameplayScreen extends AbstractScreen
         spriteBatch.end();
         if(isEndGame())
         {
+            highscore_array.getArray_highscore().add(highscore);
+            file_handle.writeString(json.toJson(highscore_array), false);
             this.dispose();
             game.setScreen(new EndGameScreen(game,isBeatBestScore(), score));
         }
