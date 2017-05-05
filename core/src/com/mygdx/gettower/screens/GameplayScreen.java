@@ -13,6 +13,8 @@ package com.mygdx.gettower.screens;
         import com.badlogic.gdx.utils.Array;
 
         import com.badlogic.gdx.utils.Json;
+        import com.badlogic.gdx.utils.Timer;
+        import com.badlogic.gdx.utils.Timer.Task;
         import com.mygdx.gettower.entities.Platform;
         import com.mygdx.gettower.entities.Player;
         import com.mygdx.gettower.GetTowerGameClass;
@@ -92,6 +94,16 @@ public class GameplayScreen extends AbstractScreen
         {
             System.out.print("platform = "+hs.getPlatform()+" score = "+hs.getScore()+" time = "+ hs.getTime()+"\n");
         }
+
+        Timer.schedule(new Task(){
+                           @Override
+                           public void run() {
+                               System.out.println("1s");
+                           }
+                       }
+                , 0        //    (delay)
+                , 1     //    (seconds)
+        );
 
     }
 
@@ -240,7 +252,7 @@ public class GameplayScreen extends AbstractScreen
 
     private void acceleration_camera()
     {
-        if (score % 10 == 0 && acceleration_flag == true)
+        if (score % 10 == 0 && acceleration_flag)
         {
             acceleration += 0.5;
             acceleration_flag = false;
@@ -254,7 +266,7 @@ public class GameplayScreen extends AbstractScreen
 
     private void score_counter()
     {
-        if (score_height == player.getY() && player.canJump == true)
+        if (score_height == player.getY() && player.canJump)
         {
             score++;
             score_height = score_height + 150;
@@ -289,9 +301,9 @@ public class GameplayScreen extends AbstractScreen
         setButton(jumpButton, 160, 120, 161, Math.round(camera_stay-150));
     }
 
-    public void fall()
+    private void fall()
     {
-        if (player.jumpDelay >= 0 && player.canJump == false)
+        if (player.jumpDelay >= 0 && !player.canJump)
         {
             player.setPosition(player.getX(), player.getY()+300 * Gdx.graphics.getDeltaTime());
         }
