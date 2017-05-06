@@ -1,28 +1,26 @@
 package com.mygdx.gettower.screens;
 
-        import com.badlogic.gdx.Gdx;
-        import com.badlogic.gdx.Preferences;
-        import com.badlogic.gdx.audio.Music;
-        import com.badlogic.gdx.files.FileHandle;
-        import com.badlogic.gdx.graphics.g2d.BitmapFont;
-        import com.badlogic.gdx.math.MathUtils;
-        import com.badlogic.gdx.scenes.scene2d.InputEvent;
-        import com.badlogic.gdx.scenes.scene2d.ui.Button;
-        import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
-        import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-        import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.Timer;
+import com.badlogic.gdx.utils.Timer.Task;
+import com.mygdx.gettower.entities.Platform;
+import com.mygdx.gettower.entities.Player;
+import com.mygdx.gettower.GetTowerGameClass;
+import com.mygdx.gettower.tables.Highscore;
+import com.mygdx.gettower.tables.HighscoreArray;
 
-        import com.badlogic.gdx.utils.Json;
-        import com.badlogic.gdx.utils.Timer;
-        import com.badlogic.gdx.utils.Timer.Task;
-        import com.mygdx.gettower.entities.Platform;
-        import com.mygdx.gettower.entities.Player;
-        import com.mygdx.gettower.GetTowerGameClass;
-        import com.mygdx.gettower.tables.Highscore;
-        import com.mygdx.gettower.tables.HighscoreArray;
-
-// TODO: ADD TIMER
-// TODO: ADD TRUE HIGHSCORES
+// TODO: ADD TRUE counter of platforms and change counting scores
 // TODO: ADD RANKING
 // TODO: ADD RANDOM SIZE OF PLATFORM (EG. 50-200)
 // TODO: REFACTOR AND BETTER LOOK
@@ -44,6 +42,8 @@ public class GameplayScreen extends AbstractScreen
     private int score_height;
     private int score;
     private int best_score;
+    private int time;
+    private BitmapFont name_time;
     private BitmapFont name_score;
     private BitmapFont name_best_score;
     private BitmapFont name_left;
@@ -73,6 +73,7 @@ public class GameplayScreen extends AbstractScreen
         music.play();
         score_height = 210;
         score = 0;
+        name_time = new BitmapFont();
         name_score = new BitmapFont();
         name_best_score = new BitmapFont();
         name_left = new BitmapFont();
@@ -82,7 +83,8 @@ public class GameplayScreen extends AbstractScreen
         acceleration_flag = true;
         prefs = Gdx.app.getPreferences(PREF_GAME);
         best_score = prefs.getInteger(PREF_BEST_SCORE);
-        highscore = new Highscore(1,2,3);
+        time = 0;
+        highscore = new Highscore(0,0,0);
         file_handle = Gdx.files.local("highscores.json");
         json = new Json();
         highscore_array = new HighscoreArray();
@@ -95,15 +97,7 @@ public class GameplayScreen extends AbstractScreen
             System.out.print("platform = "+hs.getPlatform()+" score = "+hs.getScore()+" time = "+ hs.getTime()+"\n");
         }
 
-        Timer.schedule(new Task(){
-                           @Override
-                           public void run() {
-                               System.out.println("1s");
-                           }
-                       }
-                , 0        //    (delay)
-                , 1     //    (seconds)
-        );
+        start_timer();
 
     }
 
@@ -193,6 +187,7 @@ public class GameplayScreen extends AbstractScreen
         stage.draw();
         spriteBatch.end();
         spriteBatch.begin();
+        name_time.draw(spriteBatch, "Your time: " + String.valueOf(time),350,camera_stay+390);
         name_score.draw(spriteBatch, "Your score: " + String.valueOf(score),350,camera_stay+420);
         name_best_score.draw(spriteBatch, "Best score: " + String.valueOf(best_score),350,camera_stay+450);
         name_left.draw(spriteBatch, "LEFT",50,camera_stay-100);
@@ -202,6 +197,9 @@ public class GameplayScreen extends AbstractScreen
         spriteBatch.end();
         if(isEndGame())
         {
+            highscore.setPlatform(score);
+            highscore.setScore(score);
+            highscore.setTime(time);
             highscore_array.getArray_highscore().add(highscore);
             file_handle.writeString(json.toJson(highscore_array), false);
             this.dispose();
@@ -335,6 +333,19 @@ public class GameplayScreen extends AbstractScreen
         return false;
     }
 
+    private void start_timer()
+    {
+        Timer.schedule(new Task(){
+                           @Override
+                           public void run() {
+                               time++;
+                           }
+                       }
+                , 0        //    (delay)
+                , 1     //    (seconds)
+        );
+    }
+
     private void isMusicStillPlaying()
     {
         if (!music.isPlaying())
@@ -347,6 +358,7 @@ public class GameplayScreen extends AbstractScreen
     public void dispose()
     {
         music.dispose();
+        name_time.dispose();
         name_score.dispose();
         name_best_score.dispose();
     }
