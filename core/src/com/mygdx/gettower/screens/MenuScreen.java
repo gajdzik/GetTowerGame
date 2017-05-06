@@ -27,6 +27,7 @@ public class MenuScreen extends AbstractScreen
     private BitmapFont ranking;
     private BitmapFont exit;
     private Button startButton;
+    private Button rankingButton;
     private Button exitButton;
 
     public MenuScreen(final GetTowerGameClass game)
@@ -54,9 +55,10 @@ public class MenuScreen extends AbstractScreen
 
         startButton = new Button(new Button.ButtonStyle());
         startButton.setWidth(160);
-        startButton.setHeight(120);
+        startButton.setHeight(60);
         startButton.setX(150);
-        startButton.setY(500);
+        startButton.setY(450);
+        startButton.setDebug(true);
         stage.addActor(startButton);
         startButton.addListener(new ClickListener()
         {
@@ -68,11 +70,28 @@ public class MenuScreen extends AbstractScreen
             }
         });
 
+        rankingButton = new Button(new Button.ButtonStyle());
+        rankingButton.setWidth(160);
+        rankingButton.setHeight(60);
+        rankingButton.setX(150);
+        rankingButton.setY(150);
+        rankingButton.setDebug(true);
+        stage.addActor(rankingButton);
+        rankingButton.addListener(new ClickListener()
+        {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
+            {
+                game.setScreen(new RankingMenuScreen(game));
+                return super.touchDown(event, x, y, pointer, button);
+            }
+        });
+
         exitButton = new Button(new Button.ButtonStyle());
         exitButton.setWidth(160);
-        exitButton.setHeight(120);
+        exitButton.setHeight(60);
         exitButton.setX(150);
-        exitButton.setY(100);
+        exitButton.setY(50);
         exitButton.setDebug(true);
         stage.addActor(exitButton);
         exitButton.addListener(new ClickListener()
