@@ -24,12 +24,13 @@ public class TopScoresScreen extends AbstractScreen {
     private BitmapFont name_return;
     private HighscoreArray highscore_array;
     private Button return_button;
+    private String name;
 
-    public TopScoresScreen(final GetTowerGameClass game, HighscoreArray highscore_array)
+    public TopScoresScreen(final GetTowerGameClass game, HighscoreArray highscore_array, String name)
     {
         super(game);
         this.highscore_array = highscore_array;
-        search_best_scores();
+        search_best_scores(name);
     }
 
     @Override
@@ -79,7 +80,13 @@ public class TopScoresScreen extends AbstractScreen {
     {
         super.render(delta);
         spriteBatch.begin();
-        name_best_score.draw(spriteBatch,"Best scores", 150, 450 );
+        if (name == "score")
+            name_best_score.draw(spriteBatch,"Best scores", 150, 450 );
+        else if (name == "platform")
+            name_best_score.draw(spriteBatch,"Best platforms", 150, 450 );
+        else
+            name_best_score.draw(spriteBatch,"Best times", 150, 450 );
+
         name_first_place.draw(spriteBatch, "First place: " + String.valueOf(first_place),150,390);
         name_first_place.draw(spriteBatch, "Second place: " + String.valueOf(second_place),150,340);
         name_first_place.draw(spriteBatch, "Third place: " + String.valueOf(third_place),150,290);
@@ -90,39 +97,48 @@ public class TopScoresScreen extends AbstractScreen {
         spriteBatch.end();
     }
     
-    private void search_best_scores()
+    private void search_best_scores(String name)
     {
+        this.name = name;
+        int i;
         for (Highscore hs : highscore_array.getArray_highscore())
         {
-            if (hs.getScore() >= first_place)
+            if (name == "score")
+                i = hs.getScore();
+            else if (name == "platform")
+                i = hs.getPlatform();
+            else
+                i = hs.getTime();
+
+            if (i >= first_place)
             {
                 fifth_place = fourth_place;
                 fourth_place = third_place;
                 third_place = second_place;
                 second_place = first_place;
-                first_place = hs.getScore();
+                first_place = i;
             }
-            else if ( hs.getScore() >= second_place )
+            else if (i >= second_place )
             {
                 fifth_place = fourth_place;
                 fourth_place = third_place;
                 third_place = second_place;
-                second_place = hs.getScore();
+                second_place = i;
             }
-            else if ( hs.getScore() >= third_place )
+            else if ( i >= third_place )
             {
                 fifth_place = fourth_place;
                 fourth_place = third_place;
-                third_place = hs.getScore();
+                third_place = i;
             }
-            else if ( hs.getScore() >= fourth_place )
+            else if ( i >= fourth_place )
             {
                 fifth_place = fourth_place;
-                fourth_place = hs.getScore();
+                fourth_place = i;
             }
-            else if ( hs.getScore() >= fifth_place )
+            else if ( i >= fifth_place )
             {
-                fifth_place = hs.getScore();
+                fifth_place = i;
             }
         }
     }

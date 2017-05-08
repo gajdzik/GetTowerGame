@@ -20,8 +20,8 @@ public class RankingMenuScreen extends AbstractScreen {
     private BitmapFont name_return;
     private Button return_button;
     private Button top_scores_button;
-  //  private Button top_platforms_button;
-   // private Button top_times_button;
+    private Button top_platforms_button;
+    private Button top_times_button;
     private FileHandle file_handle;
     private Json json;
     private HighscoreArray highscore_array;
@@ -78,11 +78,44 @@ public class RankingMenuScreen extends AbstractScreen {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
             {
-                game.setScreen(new TopScoresScreen(game,highscore_array));
+                game.setScreen(new TopScoresScreen(game,highscore_array, "score"));
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
 
+        top_platforms_button = new Button(new Button.ButtonStyle());
+        top_platforms_button.setWidth(160);
+        top_platforms_button.setHeight(60);
+        top_platforms_button.setX(150);
+        top_platforms_button.setY(350);
+        top_platforms_button.setDebug(true);
+        stage.addActor(top_platforms_button);
+        top_platforms_button.addListener(new ClickListener()
+        {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
+            {
+                game.setScreen(new TopScoresScreen(game,highscore_array, "platform"));
+                return super.touchDown(event, x, y, pointer, button);
+            }
+        });
+
+        top_times_button = new Button(new Button.ButtonStyle());
+        top_times_button.setWidth(160);
+        top_times_button.setHeight(60);
+        top_times_button.setX(150);
+        top_times_button.setY(250);
+        top_times_button.setDebug(true);
+        stage.addActor(top_times_button);
+        top_times_button.addListener(new ClickListener()
+        {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
+            {
+                game.setScreen(new TopScoresScreen(game,highscore_array, "times"));
+                return super.touchDown(event, x, y, pointer, button);
+            }
+        });
 
     }
 
