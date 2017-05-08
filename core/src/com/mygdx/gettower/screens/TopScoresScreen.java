@@ -1,6 +1,9 @@
 package com.mygdx.gettower.screens;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.gettower.GetTowerGameClass;
 import com.mygdx.gettower.tables.Highscore;
 import com.mygdx.gettower.tables.HighscoreArray;
@@ -18,7 +21,9 @@ public class TopScoresScreen extends AbstractScreen {
     private BitmapFont name_third_place;
     private BitmapFont name_fourth_place;
     private BitmapFont name_fifth_place;
+    private BitmapFont name_return;
     private HighscoreArray highscore_array;
+    private Button return_button;
 
     public TopScoresScreen(final GetTowerGameClass game, HighscoreArray highscore_array)
     {
@@ -47,6 +52,26 @@ public class TopScoresScreen extends AbstractScreen {
         name_fourth_place.getData().setScale(2, 2);
         name_fifth_place = new BitmapFont();
         name_fifth_place.getData().setScale(2, 2);
+        name_return = new BitmapFont();
+        name_return.getData().setScale(2, 2);
+
+
+        return_button = new Button(new Button.ButtonStyle());
+        return_button.setWidth(160);
+        return_button.setHeight(60);
+        return_button.setX(150);
+        return_button.setY(50);
+        return_button.setDebug(true);
+        stage.addActor(return_button);
+        return_button.addListener(new ClickListener()
+        {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
+            {
+                game.setScreen(new RankingMenuScreen(game));
+                return super.touchDown(event, x, y, pointer, button);
+            }
+        });
     }
 
     @Override
@@ -60,6 +85,8 @@ public class TopScoresScreen extends AbstractScreen {
         name_first_place.draw(spriteBatch, "Third place: " + String.valueOf(third_place),150,290);
         name_first_place.draw(spriteBatch, "Fourth place: " + String.valueOf(fourth_place),150,240);
         name_first_place.draw(spriteBatch, "Fifth place: " + String.valueOf(fifth_place),150,190);
+        name_return.draw(spriteBatch, "Return",150,80);
+       // stage.draw();
         spriteBatch.end();
     }
     
@@ -103,5 +130,12 @@ public class TopScoresScreen extends AbstractScreen {
     @Override
     public void dispose()
     {
+        name_best_score.dispose();
+        name_first_place.dispose();
+        name_second_place.dispose();
+        name_third_place.dispose();
+        name_fourth_place.dispose();
+        name_fifth_place.dispose();
+        name_return.dispose();
     }
 }
