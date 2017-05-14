@@ -49,22 +49,6 @@ public class EndGameScreen extends AbstractScreen
         name_return = new BitmapFont();
         name_return.getData().setScale(2, 2);
 
-        return_button = new Button(new Button.ButtonStyle());
-        return_button.setWidth(160);
-        return_button.setHeight(60);
-        return_button.setX(150);
-        return_button.setY(50);
-        return_button.setDebug(true);
-        stage.addActor(return_button);
-        return_button.addListener(new ClickListener()
-        {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
-            {
-                game.setScreen(new MenuScreen(game));
-                return super.touchDown(event, x, y, pointer, button);
-            }
-        });
     }
 
     private void soundPlay()
@@ -89,7 +73,6 @@ public class EndGameScreen extends AbstractScreen
     {
         quitButton = new Button(new ButtonStyle());
         setButton(quitButton, 160, 120, 50, 100);
-        stage.addActor(quitButton);
         quitButton.addListener(new ClickListener()
         {
             @Override
@@ -102,13 +85,25 @@ public class EndGameScreen extends AbstractScreen
 
         restartButton = new Button(new ButtonStyle());
         setButton(restartButton, 200, 120, 250, 100);
-        stage.addActor(restartButton);
         restartButton.addListener(new ClickListener()
         {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
             {
                 game.setScreen(new GameplayScreen(game));
+                return super.touchDown(event, x, y, pointer, button);
+            }
+        });
+
+
+        return_button = new Button(new Button.ButtonStyle());
+        setButton(restartButton, 160, 60, 150, 50);
+        return_button.addListener(new ClickListener()
+        {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
+            {
+                game.setScreen(new MenuScreen(game));
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
@@ -122,6 +117,7 @@ public class EndGameScreen extends AbstractScreen
         button.setHeight(h);
         button.setX(x);
         button.setY(y);
+        stage.addActor(button);
     }
 
     @Override
