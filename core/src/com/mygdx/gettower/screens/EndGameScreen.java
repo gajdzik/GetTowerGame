@@ -114,6 +114,8 @@ public class EndGameScreen extends AbstractScreen
         });
     }
 
+    // TODO: move this method to abstract class and change for first parameter for TextButton
+    // and inherit this method in all screeens!
     private void setButton(Button button, int w, int h, int x, int y)
     {
         button.setWidth(w);

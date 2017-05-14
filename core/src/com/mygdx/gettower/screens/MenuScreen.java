@@ -1,34 +1,20 @@
 package com.mygdx.gettower.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.utils.BaseDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-
 import com.mygdx.gettower.GetTowerGameClass;
-
-import java.awt.Font;
 
 public class MenuScreen extends AbstractScreen
 {
-    // TODO: USE TextButton instead of bitmapfont and button !
-    // add fonts and json skins!
-    private BitmapFont start_game;
-    private BitmapFont change_lvl;
-    private BitmapFont change_avatar;
-    private BitmapFont ranking;
-    private BitmapFont exit;
-    private Button startButton;
-    private Button rankingButton;
-    private Button exitButton;
+    private TextButton change_lvl_button;
+    private TextButton change_avatar_button;
+    private TextButton ranking_button;
+    private TextButton exit_button;
+    private TextButton start_button;
+    private Skin skin;
 
     public MenuScreen(final GetTowerGameClass game)
     {
@@ -38,29 +24,15 @@ public class MenuScreen extends AbstractScreen
     @Override
     protected void init()
     {
-        start_game = new BitmapFont();
-        start_game.getData().setScale(2, 2);
+        skin = new Skin(Gdx.files.internal("comic/comic-ui.json"));
 
-        change_lvl = new BitmapFont();
-        change_lvl.getData().setScale(2, 2);
-
-        change_avatar = new BitmapFont();
-        change_avatar.getData().setScale(2, 2);
-
-        ranking = new BitmapFont();
-        ranking.getData().setScale(2, 2);
-
-        exit = new BitmapFont();
-        exit.getData().setScale(2, 2);
-
-        startButton = new Button(new Button.ButtonStyle());
-        startButton.setWidth(160);
-        startButton.setHeight(60);
-        startButton.setX(150);
-        startButton.setY(450);
-        startButton.setDebug(true);
-        stage.addActor(startButton);
-        startButton.addListener(new ClickListener()
+        start_button = new TextButton("START",skin);
+        start_button.setWidth(300);
+        start_button.setHeight(60);
+        start_button.setX(100);
+        start_button.setY(550);
+        stage.addActor(start_button);
+        start_button.addListener(new ClickListener()
         {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
@@ -70,14 +42,45 @@ public class MenuScreen extends AbstractScreen
             }
         });
 
-        rankingButton = new Button(new Button.ButtonStyle());
-        rankingButton.setWidth(160);
-        rankingButton.setHeight(60);
-        rankingButton.setX(150);
-        rankingButton.setY(150);
-        rankingButton.setDebug(true);
-        stage.addActor(rankingButton);
-        rankingButton.addListener(new ClickListener()
+        change_lvl_button = new TextButton("CHANGE LEVEL",skin);
+        change_lvl_button.setWidth(300);
+        change_lvl_button.setHeight(60);
+        change_lvl_button.setX(100);
+        change_lvl_button.setY(430);
+        stage.addActor(change_lvl_button);
+        change_lvl_button.addListener(new ClickListener()
+        {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
+            {
+                //game.setScreen(new RankingMenuScreen(game));
+                return super.touchDown(event, x, y, pointer, button);
+            }
+        });
+
+        change_avatar_button = new TextButton("CHANGE AVATAR",skin);
+        change_avatar_button.setWidth(300);
+        change_avatar_button.setHeight(60);
+        change_avatar_button.setX(100);
+        change_avatar_button.setY(310);
+        stage.addActor(change_avatar_button);
+        change_avatar_button.addListener(new ClickListener()
+        {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
+            {
+                //game.setScreen(new RankingMenuScreen(game));
+                return super.touchDown(event, x, y, pointer, button);
+            }
+        });
+
+        ranking_button = new TextButton("RANKING",skin);
+        ranking_button.setWidth(300);
+        ranking_button.setHeight(60);
+        ranking_button.setX(100);
+        ranking_button.setY(190);
+        stage.addActor(ranking_button);
+        ranking_button.addListener(new ClickListener()
         {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
@@ -87,14 +90,13 @@ public class MenuScreen extends AbstractScreen
             }
         });
 
-        exitButton = new Button(new Button.ButtonStyle());
-        exitButton.setWidth(160);
-        exitButton.setHeight(60);
-        exitButton.setX(150);
-        exitButton.setY(50);
-        exitButton.setDebug(true);
-        stage.addActor(exitButton);
-        exitButton.addListener(new ClickListener()
+        exit_button = new TextButton("EXIT",skin);
+        exit_button.setWidth(300);
+        exit_button.setHeight(60);
+        exit_button.setX(100);
+        exit_button.setY(70);
+        stage.addActor(exit_button);
+        exit_button.addListener(new ClickListener()
         {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
@@ -103,7 +105,6 @@ public class MenuScreen extends AbstractScreen
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
-
     }
 
     @Override
@@ -111,13 +112,7 @@ public class MenuScreen extends AbstractScreen
     {
         super.render(delta);
         spriteBatch.begin();
-        start_game.draw(spriteBatch,"START", 150, 500 );
-        change_lvl.draw(spriteBatch,"CHANGE LEVEL", 150, 400 );
-        change_avatar.draw(spriteBatch,"CHANGE AVATAR", 150, 300 );
-        ranking.draw(spriteBatch,"RANKING", 150, 200 );
-        exit.draw(spriteBatch,"EXIT", 150, 100 );
-        //    TODO: When adds stage.draw(), exit.draw is missing!? why?
-        // stage.draw();
+        stage.draw();
         spriteBatch.end();
     }
 
@@ -125,10 +120,5 @@ public class MenuScreen extends AbstractScreen
     @Override
     public void dispose()
     {
-        start_game.dispose();
-        change_lvl.dispose();
-        change_avatar.dispose();
-        ranking.dispose();
-        exit.dispose();
     }
 }
