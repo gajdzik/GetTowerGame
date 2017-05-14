@@ -2,9 +2,8 @@ package com.mygdx.gettower.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Json;
 import com.mygdx.gettower.GetTowerGameClass;
@@ -12,16 +11,10 @@ import com.mygdx.gettower.tables.HighscoreArray;
 
 public class RankingMenuScreen extends AbstractScreen {
 
-    // TODO: ADD buttons and "top_screens"
-
-    private BitmapFont top_scores;
-    private BitmapFont top_platforms;
-    private BitmapFont top_times;
-    private BitmapFont name_return;
-    private Button return_button;
-    private Button top_scores_button;
-    private Button top_platforms_button;
-    private Button top_times_button;
+    private TextButton return_button;
+    private TextButton top_scores_button;
+    private TextButton top_platforms_button;
+    private TextButton top_times_button;
     private FileHandle file_handle;
     private Json json;
     private HighscoreArray highscore_array;
@@ -33,15 +26,6 @@ public class RankingMenuScreen extends AbstractScreen {
 
     @Override
     protected void init() {
-        top_scores = new BitmapFont();
-        top_scores.getData().setScale(2, 2);
-        top_platforms = new BitmapFont();
-        top_platforms.getData().setScale(2, 2);
-        top_times = new BitmapFont();
-        top_times.getData().setScale(2, 2);
-        name_return = new BitmapFont();
-        name_return.getData().setScale(2, 2);
-
         file_handle = Gdx.files.local("highscores.json");
         json = new Json();
         highscore_array = new HighscoreArray();
@@ -49,9 +33,8 @@ public class RankingMenuScreen extends AbstractScreen {
             highscore_array = json.fromJson(highscore_array.getClass(), file_handle.readString());
 
 
-        return_button = new Button(new Button.ButtonStyle());
+        return_button = new TextButton("RETURN",skin);
         setButton(return_button, 160, 60, 150, 50);
-        return_button.setDebug(true);
         return_button.addListener(new ClickListener()
         {
             @Override
@@ -62,9 +45,8 @@ public class RankingMenuScreen extends AbstractScreen {
             }
         });
 
-        top_scores_button = new Button(new Button.ButtonStyle());
+        top_scores_button = new TextButton("TOP SCORES",skin);
         setButton(top_scores_button, 160, 60, 150, 450);
-        top_scores_button.setDebug(true);
         top_scores_button.addListener(new ClickListener()
         {
             @Override
@@ -75,9 +57,8 @@ public class RankingMenuScreen extends AbstractScreen {
             }
         });
 
-        top_platforms_button = new Button(new Button.ButtonStyle());
+        top_platforms_button = new TextButton("TOP PLATFORMS",skin);
         setButton(top_platforms_button, 160, 60, 150, 350);
-        top_platforms_button.setDebug(true);
         top_platforms_button.addListener(new ClickListener()
         {
             @Override
@@ -88,9 +69,8 @@ public class RankingMenuScreen extends AbstractScreen {
             }
         });
 
-        top_times_button = new Button(new Button.ButtonStyle());
+        top_times_button = new TextButton("TOP TIMES",skin);
         setButton(top_times_button, 160, 60, 150, 250);
-        top_times_button.setDebug(true);
         top_times_button.addListener(new ClickListener()
         {
             @Override
@@ -108,19 +88,12 @@ public class RankingMenuScreen extends AbstractScreen {
     {
         super.render(delta);
         spriteBatch.begin();
-        top_scores.draw(spriteBatch,"TOP SCORES", 150, 500 );
-        top_platforms.draw(spriteBatch,"TOP PLATFORMS", 150, 400 );
-        top_times.draw(spriteBatch,"TOP TIMES", 150, 300 );
-        name_return.draw(spriteBatch, "Return",150,80);
+        stage.draw();
         spriteBatch.end();
     }
 
     @Override
     public void dispose()
     {
-        top_scores.dispose();
-        top_platforms.dispose();
-        top_times.dispose();
-        name_return.dispose();
     }
 }
