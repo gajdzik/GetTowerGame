@@ -3,7 +3,6 @@ package com.mygdx.gettower.screens;
         import com.badlogic.gdx.graphics.g2d.BitmapFont;
         import com.badlogic.gdx.utils.Timer;
         import com.badlogic.gdx.utils.Timer.Task;
-
         import com.mygdx.gettower.GetTowerGameClass;
 
 public class SplashScreen extends AbstractScreen
@@ -30,14 +29,10 @@ public class SplashScreen extends AbstractScreen
     @Override
     protected void init()
     {
-        game_name = new BitmapFont();
-        game_name.getData().setScale(2, 2);
-
-        made_by = new BitmapFont();
-        made_by.getData().setScale(1.5f, 1.5f);
-
-        creator_name = new BitmapFont();
-        creator_name.getData().setScale(2, 2);
+        game_name = skin.getFont("title");
+        game_name.getData().setScale(0.8f, 0.8f);
+        made_by = skin.getFont("title");
+        creator_name = skin.getFont("title");
     }
 
     @Override
@@ -45,9 +40,9 @@ public class SplashScreen extends AbstractScreen
     {
         super.render(delta);
         spriteBatch.begin();
-        game_name.draw(spriteBatch,"Get Tower", 175, 500 );
-        made_by.draw(spriteBatch,"made by", 200, 400 );
-        creator_name.draw(spriteBatch,"Przemyslaw  Gajdzinski", 100, 300 );
+        game_name.draw(spriteBatch,"Get Tower", 160, 500 );
+        made_by.draw(spriteBatch,"made by", 175, 400 );
+        creator_name.draw(spriteBatch,"Przemyslaw  Gajdzinski", 50, 300 );
         spriteBatch.end();
     }
 

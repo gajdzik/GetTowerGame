@@ -14,7 +14,6 @@ public class MenuScreen extends AbstractScreen
     private TextButton ranking_button;
     private TextButton exit_button;
     private TextButton start_button;
-    private Skin skin;
 
     public MenuScreen(final GetTowerGameClass game)
     {
@@ -24,8 +23,6 @@ public class MenuScreen extends AbstractScreen
     @Override
     protected void init()
     {
-        skin = new Skin(Gdx.files.internal("comic/comic-ui.json"));
-
         start_button = new TextButton("START",skin);
         setButton(start_button, 300, 60, 100, 550);
         start_button.addListener(new ClickListener()

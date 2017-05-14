@@ -160,7 +160,7 @@ public class GameplayScreen extends AbstractScreen
             }
         });
     }
-    
+
     private void initPlayer()
     {
         player = new Player();

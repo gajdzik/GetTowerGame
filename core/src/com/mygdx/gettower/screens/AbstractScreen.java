@@ -7,6 +7,7 @@ package com.mygdx.gettower.screens;
         import com.badlogic.gdx.graphics.g2d.SpriteBatch;
         import com.badlogic.gdx.scenes.scene2d.Stage;
         import com.badlogic.gdx.scenes.scene2d.ui.Button;
+        import com.badlogic.gdx.scenes.scene2d.ui.Skin;
         import com.badlogic.gdx.utils.viewport.StretchViewport;
 
         import com.mygdx.gettower.GetTowerGameClass;
@@ -18,10 +19,12 @@ public abstract class AbstractScreen implements Screen
     protected Stage stage;
     private OrthographicCamera camera;
     protected SpriteBatch spriteBatch;
+    protected Skin skin;
 
     public AbstractScreen(GetTowerGameClass game)
     {
         this.game = game;
+        skin = new Skin(Gdx.files.internal("comic/comic-ui.json"));
         createCamera();
         stage = new Stage(new StretchViewport(GetTowerGameClass.WIDTH,GetTowerGameClass.HEIGHT,getCamera()));
         spriteBatch = new SpriteBatch();
