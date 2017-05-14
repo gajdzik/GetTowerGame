@@ -27,11 +27,7 @@ public class MenuScreen extends AbstractScreen
         skin = new Skin(Gdx.files.internal("comic/comic-ui.json"));
 
         start_button = new TextButton("START",skin);
-        start_button.setWidth(300);
-        start_button.setHeight(60);
-        start_button.setX(100);
-        start_button.setY(550);
-        stage.addActor(start_button);
+        setButton(start_button, 300, 60, 100, 550);
         start_button.addListener(new ClickListener()
         {
             @Override
@@ -43,11 +39,7 @@ public class MenuScreen extends AbstractScreen
         });
 
         change_lvl_button = new TextButton("CHANGE LEVEL",skin);
-        change_lvl_button.setWidth(300);
-        change_lvl_button.setHeight(60);
-        change_lvl_button.setX(100);
-        change_lvl_button.setY(430);
-        stage.addActor(change_lvl_button);
+        setButton(change_lvl_button, 300, 60, 100, 430);
         change_lvl_button.addListener(new ClickListener()
         {
             @Override
@@ -59,11 +51,7 @@ public class MenuScreen extends AbstractScreen
         });
 
         change_avatar_button = new TextButton("CHANGE AVATAR",skin);
-        change_avatar_button.setWidth(300);
-        change_avatar_button.setHeight(60);
-        change_avatar_button.setX(100);
-        change_avatar_button.setY(310);
-        stage.addActor(change_avatar_button);
+        setButton(change_avatar_button, 300, 60, 100, 310);
         change_avatar_button.addListener(new ClickListener()
         {
             @Override
@@ -75,11 +63,7 @@ public class MenuScreen extends AbstractScreen
         });
 
         ranking_button = new TextButton("RANKING",skin);
-        ranking_button.setWidth(300);
-        ranking_button.setHeight(60);
-        ranking_button.setX(100);
-        ranking_button.setY(190);
-        stage.addActor(ranking_button);
+        setButton(ranking_button, 300, 60, 100, 190);
         ranking_button.addListener(new ClickListener()
         {
             @Override
@@ -91,11 +75,7 @@ public class MenuScreen extends AbstractScreen
         });
 
         exit_button = new TextButton("EXIT",skin);
-        exit_button.setWidth(300);
-        exit_button.setHeight(60);
-        exit_button.setX(100);
-        exit_button.setY(70);
-        stage.addActor(exit_button);
+        setButton(exit_button, 300, 60, 100, 70);
         exit_button.addListener(new ClickListener()
         {
             @Override

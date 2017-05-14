@@ -58,12 +58,7 @@ public class TopScoresScreen extends AbstractScreen {
 
 
         return_button = new Button(new Button.ButtonStyle());
-        return_button.setWidth(160);
-        return_button.setHeight(60);
-        return_button.setX(150);
-        return_button.setY(50);
-        return_button.setDebug(true);
-        stage.addActor(return_button);
+        setButton(return_button, 160, 60, 150, 50);
         return_button.addListener(new ClickListener()
         {
             @Override

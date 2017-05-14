@@ -126,7 +126,6 @@ public class GameplayScreen extends AbstractScreen
         leftButton = new Button(new ButtonStyle());
         setButton(leftButton, 160, 120, 0, -90);
         leftButton.setDebug(true);
-        stage.addActor(leftButton);
         leftButton.addListener(new ClickListener()
         {
             @Override
@@ -139,7 +138,6 @@ public class GameplayScreen extends AbstractScreen
 
         rightButton = new Button(new ButtonStyle());
         setButton(rightButton, 160, 120, 322, -90);
-        stage.addActor(rightButton);
         rightButton.addListener(new ClickListener()
         {
             @Override
@@ -152,7 +150,6 @@ public class GameplayScreen extends AbstractScreen
 
         jumpButton = new Button(new ButtonStyle());
         setButton(jumpButton, 160, 120, 161, -90);
-        stage.addActor(jumpButton);
         jumpButton.addListener(new ClickListener()
         {
             @Override
@@ -163,15 +160,7 @@ public class GameplayScreen extends AbstractScreen
             }
         });
     }
-
-    private void setButton(Button button, int w, int h, int x, int y)
-    {
-        button.setWidth(w);
-        button.setHeight(h);
-        button.setX(x);
-        button.setY(y);
-    }
-
+    
     private void initPlayer()
     {
         player = new Player();

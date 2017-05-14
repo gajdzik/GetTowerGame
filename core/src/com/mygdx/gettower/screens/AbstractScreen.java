@@ -6,6 +6,7 @@ package com.mygdx.gettower.screens;
         import com.badlogic.gdx.graphics.OrthographicCamera;
         import com.badlogic.gdx.graphics.g2d.SpriteBatch;
         import com.badlogic.gdx.scenes.scene2d.Stage;
+        import com.badlogic.gdx.scenes.scene2d.ui.Button;
         import com.badlogic.gdx.utils.viewport.StretchViewport;
 
         import com.mygdx.gettower.GetTowerGameClass;
@@ -48,6 +49,16 @@ public abstract class AbstractScreen implements Screen
     {
         Gdx.gl.glClearColor(0.5f, 0, 1, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+    }
+
+    // TODO: change for first parameter for TextButton and inherit this method in all screeens!
+    protected void setButton(Button button, int w, int h, int x, int y)
+    {
+        button.setWidth(w);
+        button.setHeight(h);
+        button.setX(x);
+        button.setY(y);
+        stage.addActor(button);
     }
 
     @Override

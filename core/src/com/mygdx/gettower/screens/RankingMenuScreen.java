@@ -50,12 +50,8 @@ public class RankingMenuScreen extends AbstractScreen {
 
 
         return_button = new Button(new Button.ButtonStyle());
-        return_button.setWidth(160);
-        return_button.setHeight(60);
-        return_button.setX(150);
-        return_button.setY(50);
+        setButton(return_button, 160, 60, 150, 50);
         return_button.setDebug(true);
-        stage.addActor(return_button);
         return_button.addListener(new ClickListener()
         {
             @Override
@@ -67,12 +63,8 @@ public class RankingMenuScreen extends AbstractScreen {
         });
 
         top_scores_button = new Button(new Button.ButtonStyle());
-        top_scores_button.setWidth(160);
-        top_scores_button.setHeight(60);
-        top_scores_button.setX(150);
-        top_scores_button.setY(450);
+        setButton(top_scores_button, 160, 60, 150, 450);
         top_scores_button.setDebug(true);
-        stage.addActor(top_scores_button);
         top_scores_button.addListener(new ClickListener()
         {
             @Override
@@ -84,12 +76,8 @@ public class RankingMenuScreen extends AbstractScreen {
         });
 
         top_platforms_button = new Button(new Button.ButtonStyle());
-        top_platforms_button.setWidth(160);
-        top_platforms_button.setHeight(60);
-        top_platforms_button.setX(150);
-        top_platforms_button.setY(350);
+        setButton(top_platforms_button, 160, 60, 150, 350);
         top_platforms_button.setDebug(true);
-        stage.addActor(top_platforms_button);
         top_platforms_button.addListener(new ClickListener()
         {
             @Override
@@ -101,12 +89,8 @@ public class RankingMenuScreen extends AbstractScreen {
         });
 
         top_times_button = new Button(new Button.ButtonStyle());
-        top_times_button.setWidth(160);
-        top_times_button.setHeight(60);
-        top_times_button.setX(150);
-        top_times_button.setY(250);
+        setButton(top_times_button, 160, 60, 150, 250);
         top_times_button.setDebug(true);
-        stage.addActor(top_times_button);
         top_times_button.addListener(new ClickListener()
         {
             @Override

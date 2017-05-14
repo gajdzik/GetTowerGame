@@ -97,7 +97,7 @@ public class EndGameScreen extends AbstractScreen
 
 
         return_button = new Button(new Button.ButtonStyle());
-        setButton(restartButton, 160, 60, 150, 50);
+        setButton(return_button, 160, 60, 150, 50);
         return_button.addListener(new ClickListener()
         {
             @Override
@@ -109,16 +109,6 @@ public class EndGameScreen extends AbstractScreen
         });
     }
 
-    // TODO: move this method to abstract class and change for first parameter for TextButton
-    // and inherit this method in all screeens!
-    private void setButton(Button button, int w, int h, int x, int y)
-    {
-        button.setWidth(w);
-        button.setHeight(h);
-        button.setX(x);
-        button.setY(y);
-        stage.addActor(button);
-    }
 
     @Override
     public void render(float delta)
