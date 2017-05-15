@@ -2,7 +2,8 @@ package com.mygdx.gettower.screens;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.TextArea;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.gettower.GetTowerGameClass;
@@ -16,21 +17,22 @@ public class TopScoresScreen extends AbstractScreen {
     private int third_place;
     private int fourth_place;
     private int fifth_place;
-    private BitmapFont name_best_score;
-    private BitmapFont name_first_place;
-    private BitmapFont name_second_place;
-    private BitmapFont name_third_place;
-    private BitmapFont name_fourth_place;
-    private BitmapFont name_fifth_place;
     private HighscoreArray highscore_array;
     private TextButton return_button;
     private String name;
+    private Label label_best;
+    private Label label_first_place;
+    private Label label_second_place;
+    private Label label_third_place;
+    private Label label_fourth_place;
+    private Label label_fifth_place;
 
     public TopScoresScreen(final GetTowerGameClass game, HighscoreArray highscore_array, String name)
     {
         super(game);
         this.highscore_array = highscore_array;
         search_best_scores(name);
+        init_labels();
     }
 
     @Override
@@ -40,17 +42,6 @@ public class TopScoresScreen extends AbstractScreen {
         third_place = 0;
         fourth_place = 0;
         fifth_place = 0;
-
-        // TODO: Create class "TextActor" and with Bitmapfont name and int score
-        // TODO: probably change bitmapfonts for TextActor
-        name_best_score = skin.getFont("title");
-        name_first_place = skin.getFont("title");
-        name_second_place = skin.getFont("title");
-        name_third_place = skin.getFont("title");
-        name_fourth_place = skin.getFont("title");
-        name_fifth_place = skin.getFont("title");
-        name_best_score.getData().setScale(0.8f, 0.8f);
-
 
         return_button = new TextButton("RETURN",skin);
         setButton(return_button, 160, 60, 150, 50);
@@ -65,25 +56,45 @@ public class TopScoresScreen extends AbstractScreen {
         });
     }
 
+    // TODO: use Label instead of BitMapfont in every screen
+    private void init_labels()
+    {
+        if (name == "score")
+            label_best = new Label("Best scores:",skin.get("title",LabelStyle.class));
+        else if (name == "platform")
+            label_best = new Label("Best platforms:",skin.get("title",LabelStyle.class));
+        else
+            label_best = new Label("Best times:",skin.get("title",LabelStyle.class));
+        label_best.setPosition(100,450);
+        stage.addActor(label_best);
+
+        label_first_place = new Label("First place: " + String.valueOf(first_place),skin.get("title",LabelStyle.class));
+        label_first_place.setPosition(100,390);
+        stage.addActor(label_first_place);
+
+        label_second_place = new Label("Second place: " + String.valueOf(second_place),skin.get("title",LabelStyle.class));
+        label_second_place.setPosition(100,340);
+        stage.addActor(label_second_place);
+
+        label_third_place = new Label("Third place: " + String.valueOf(third_place),skin.get("title",LabelStyle.class));
+        label_third_place.setPosition(100,290);
+        stage.addActor(label_third_place);
+
+        label_fourth_place = new Label("Fourth place: " + String.valueOf(fourth_place),skin.get("title",LabelStyle.class));
+        label_fourth_place.setPosition(100,240);
+        stage.addActor(label_fourth_place);
+
+        label_fifth_place = new Label("Fifth place: " + String.valueOf(fifth_place),skin.get("title",LabelStyle.class));
+        label_fifth_place.setPosition(100,190);
+        stage.addActor(label_fifth_place);
+    }
+
     @Override
     public void render(float delta)
     {
         super.render(delta);
         spriteBatch.begin();
-        //stage.draw();
-        if (name == "score")
-            name_best_score.draw(spriteBatch,"Best scores", 150, 450 );
-        else if (name == "platform")
-            name_best_score.draw(spriteBatch,"Best platforms", 150, 450 );
-        else
-            name_best_score.draw(spriteBatch,"Best times", 150, 450 );
-
-        name_first_place.draw(spriteBatch, "First place: " + String.valueOf(first_place),150,390);
-        name_first_place.draw(spriteBatch, "Second place: " + String.valueOf(second_place),150,340);
-        name_first_place.draw(spriteBatch, "Third place: " + String.valueOf(third_place),150,290);
-        name_first_place.draw(spriteBatch, "Fourth place: " + String.valueOf(fourth_place),150,240);
-        name_first_place.draw(spriteBatch, "Fifth place: " + String.valueOf(fifth_place),150,190);
-
+        stage.draw();
         spriteBatch.end();
     }
     
@@ -136,11 +147,5 @@ public class TopScoresScreen extends AbstractScreen {
     @Override
     public void dispose()
     {
-        name_best_score.dispose();
-        name_first_place.dispose();
-        name_second_place.dispose();
-        name_third_place.dispose();
-        name_fourth_place.dispose();
-        name_fifth_place.dispose();
     }
 }
