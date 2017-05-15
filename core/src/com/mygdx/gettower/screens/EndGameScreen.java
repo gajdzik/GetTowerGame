@@ -2,27 +2,23 @@ package com.mygdx.gettower.screens;
 
         import com.badlogic.gdx.Gdx;
         import com.badlogic.gdx.audio.Sound;
-        import com.badlogic.gdx.graphics.g2d.BitmapFont;
         import com.badlogic.gdx.scenes.scene2d.InputEvent;
-        import com.badlogic.gdx.scenes.scene2d.ui.Button;
-        import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
+        import com.badlogic.gdx.scenes.scene2d.ui.Label;
+        import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
         import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
         import com.mygdx.gettower.GetTowerGameClass;
 
 public class EndGameScreen extends AbstractScreen
 {
-    private Button quitButton;
-    private Button restartButton;
-    private Button return_button;
+    private TextButton quitButton;
+    private TextButton restartButton;
+    private TextButton return_button;
     private Sound end_game_music;
     private Sound new_record_music;
     private boolean isBeatBestScore;
-    private BitmapFont name_score;
-    private BitmapFont name_end_game;
-    private BitmapFont name_quit_game;
-    private BitmapFont name_restart;
-    private BitmapFont name_return;
+    private Label label_score;
+    private Label label_end_game;
     private int player_score;
 
     public EndGameScreen(GetTowerGameClass game, boolean isBeatBestScore, int playerScore)
@@ -30,6 +26,7 @@ public class EndGameScreen extends AbstractScreen
         super(game);
         this.isBeatBestScore = isBeatBestScore;
         this.player_score = playerScore;
+        init_labels();
     }
 
     @Override
@@ -38,17 +35,25 @@ public class EndGameScreen extends AbstractScreen
         initButtons();
         initSounds();
         soundPlay();
-        name_score = new BitmapFont();
-        name_score.getData().setScale(1.5f, 1.5f);
-        name_end_game = new BitmapFont();
-        name_end_game.getData().setScale(1.5f, 1.5f);
-        name_quit_game = new BitmapFont();
-        name_quit_game.getData().setScale(1.5f, 1.5f);
-        name_restart = new BitmapFont();
-        name_restart.getData().setScale(1.5f, 1.5f);
-        name_return = new BitmapFont();
-        name_return.getData().setScale(2, 2);
 
+    }
+
+    private void init_labels()
+    {
+        if (isBeatBestScore)
+        {
+            label_end_game = new Label("Congratulactions, you beat best score!",skin.get("title",Label.LabelStyle.class));
+            label_end_game.setPosition(20,500);
+        }
+        else
+        {
+            label_end_game = new Label("Sorry, you fail...",skin.get("title",Label.LabelStyle.class));
+            label_end_game.setPosition(80,500);
+        }
+        stage.addActor(label_end_game);
+        label_score = new Label("Your score: " + String.valueOf(player_score),skin.get("title",Label.LabelStyle.class));
+        label_score.setPosition(90,400);
+        stage.addActor(label_score);
     }
 
     private void soundPlay()
@@ -71,8 +76,8 @@ public class EndGameScreen extends AbstractScreen
 
     private void initButtons()
     {
-        quitButton = new Button(new ButtonStyle());
-        setButton(quitButton, 160, 120, 50, 100);
+        quitButton = new TextButton("QUIT GAME",skin);
+        setButton(quitButton, 300, 60, 100, 50);
         quitButton.addListener(new ClickListener()
         {
             @Override
@@ -83,8 +88,8 @@ public class EndGameScreen extends AbstractScreen
             }
         });
 
-        restartButton = new Button(new ButtonStyle());
-        setButton(restartButton, 200, 120, 250, 100);
+        restartButton = new TextButton("RESTART GAME",skin);
+        setButton(restartButton, 300, 60, 100, 250);
         restartButton.addListener(new ClickListener()
         {
             @Override
@@ -96,8 +101,8 @@ public class EndGameScreen extends AbstractScreen
         });
 
 
-        return_button = new Button(new Button.ButtonStyle());
-        setButton(return_button, 160, 60, 150, 50);
+        return_button = new TextButton("RETURN",skin);
+        setButton(return_button, 300, 60, 100, 150);
         return_button.addListener(new ClickListener()
         {
             @Override
@@ -117,33 +122,11 @@ public class EndGameScreen extends AbstractScreen
         spriteBatch.begin();
         stage.draw();
         spriteBatch.end();
-        spriteBatch.begin();
-        if (isBeatBestScore)
-        {
-            name_end_game.draw(spriteBatch, "Congratulactions, you beat best score!",80,400);
-        }
-        else
-        {
-            name_end_game.draw(spriteBatch, "Sorry, you fail...",180,400);
-
-        }
-        name_score.draw(spriteBatch, "Your score: " + String.valueOf(player_score),190,350);
-
-        name_quit_game.draw(spriteBatch, "QUIT GAME",60,170);
-        name_restart.draw(spriteBatch, "RESTART GAME",260,170);
-        name_return.draw(spriteBatch, "Return",150,80);
-
-        spriteBatch.end();
     }
 
     @Override
     public void dispose()
     {
-        name_score.dispose();
-        name_end_game.dispose();
-        name_quit_game.dispose();
-        name_restart.dispose();
-        name_return.dispose();
         end_game_music.dispose();
         new_record_music.dispose();
     }
