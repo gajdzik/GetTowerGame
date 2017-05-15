@@ -34,7 +34,7 @@ public class RankingMenuScreen extends AbstractScreen {
 
 
         return_button = new TextButton("RETURN",skin);
-        setButton(return_button, 160, 60, 150, 50);
+        setButton(return_button, 300, 60, 100, 50);
         return_button.addListener(new ClickListener()
         {
             @Override
@@ -46,7 +46,7 @@ public class RankingMenuScreen extends AbstractScreen {
         });
 
         top_scores_button = new TextButton("TOP SCORES",skin);
-        setButton(top_scores_button, 160, 60, 150, 450);
+        setButton(top_scores_button, 300, 60, 100, 450);
         top_scores_button.addListener(new ClickListener()
         {
             @Override
@@ -58,7 +58,7 @@ public class RankingMenuScreen extends AbstractScreen {
         });
 
         top_platforms_button = new TextButton("TOP PLATFORMS",skin);
-        setButton(top_platforms_button, 160, 60, 150, 350);
+        setButton(top_platforms_button, 300, 60, 100, 350);
         top_platforms_button.addListener(new ClickListener()
         {
             @Override
@@ -70,7 +70,7 @@ public class RankingMenuScreen extends AbstractScreen {
         });
 
         top_times_button = new TextButton("TOP TIMES",skin);
-        setButton(top_times_button, 160, 60, 150, 250);
+        setButton(top_times_button, 300, 60, 100, 250);
         top_times_button.addListener(new ClickListener()
         {
             @Override

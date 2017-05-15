@@ -44,7 +44,7 @@ public class TopScoresScreen extends AbstractScreen {
         fifth_place = 0;
 
         return_button = new TextButton("RETURN",skin);
-        setButton(return_button, 160, 60, 150, 50);
+        setButton(return_button, 300, 60, 100, 50);
         return_button.addListener(new ClickListener()
         {
             @Override
