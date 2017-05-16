@@ -1,15 +1,15 @@
 package com.mygdx.gettower.screens;
 
-        import com.badlogic.gdx.graphics.g2d.BitmapFont;
+        import com.badlogic.gdx.scenes.scene2d.ui.Label;
         import com.badlogic.gdx.utils.Timer;
         import com.badlogic.gdx.utils.Timer.Task;
         import com.mygdx.gettower.GetTowerGameClass;
 
 public class SplashScreen extends AbstractScreen
 {
-    private BitmapFont game_name;
-    private BitmapFont made_by;
-    private BitmapFont creator_name;
+    private Label label_game_name;
+    private Label label_made_by;
+    private Label label_creator_name;
 
     public SplashScreen(final GetTowerGameClass game)
     {
@@ -29,10 +29,20 @@ public class SplashScreen extends AbstractScreen
     @Override
     protected void init()
     {
-        game_name = skin.getFont("title");
-        game_name.getData().setScale(0.8f, 0.8f);
-        made_by = skin.getFont("title");
-        creator_name = skin.getFont("title");
+        label_game_name = new Label("Get Tower",skin.get("title",Label.LabelStyle.class));
+        label_game_name.setPosition(160,400);
+        label_game_name.setFontScale(0.8f);
+        stage.addActor(label_game_name);
+
+        label_made_by = new Label("made by",skin.get("title",Label.LabelStyle.class));
+        label_made_by.setPosition(175,300);
+        label_made_by.setFontScale(0.8f);
+        stage.addActor(label_made_by);
+
+        label_creator_name = new Label("Przemyslaw Gajdzinski",skin.get("title",Label.LabelStyle.class));
+        label_creator_name.setPosition(50,200);
+        label_creator_name.setFontScale(0.8f);
+        stage.addActor(label_creator_name);
     }
 
     @Override
@@ -40,17 +50,12 @@ public class SplashScreen extends AbstractScreen
     {
         super.render(delta);
         spriteBatch.begin();
-        game_name.draw(spriteBatch,"Get Tower", 160, 500 );
-        made_by.draw(spriteBatch,"made by", 175, 400 );
-        creator_name.draw(spriteBatch,"Przemyslaw  Gajdzinski", 50, 300 );
+        stage.draw();
         spriteBatch.end();
     }
 
     @Override
     public void dispose()
     {
-        game_name.dispose();
-        made_by.dispose();
-        creator_name.dispose();
     }
 }

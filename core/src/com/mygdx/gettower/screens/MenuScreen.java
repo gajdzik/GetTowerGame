@@ -52,7 +52,7 @@ public class MenuScreen extends AbstractScreen
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
             {
-                //game.setScreen(new RankingMenuScreen(game));
+                game.setScreen(new ChangeAvatarScreen(game));
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
