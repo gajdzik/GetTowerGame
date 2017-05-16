@@ -29,6 +29,7 @@ public class GameplayScreen extends AbstractScreen
 {
     private static final String PREF_GAME = "GAJDZINSKI.GAME";
     private static final String PREF_BEST_SCORE = "GAJDZINSKI.BEST_SCORE";
+    protected static final String PREF_AVATAR = "GAJDZINSKI.DESKA";
 
     private Player player;
     private Button leftButton;
@@ -163,7 +164,7 @@ public class GameplayScreen extends AbstractScreen
 
     private void initPlayer()
     {
-        player = new Player();
+        player = new Player(prefs.getString(PREF_AVATAR));
         stage.addActor(player);
     }
 

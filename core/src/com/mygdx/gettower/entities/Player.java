@@ -19,9 +19,9 @@ public class Player extends Image
     public float jumpDelay;
     private Sound jumpSound;
 
-    public Player()
+    public Player(String avatar)
     {
-        super(new Texture("player2.png"));
+        super(new Texture(avatar));
         this.setSize(WIDTH, HEIGHT);
         this.setPosition(STARTING_X, STARTING_Y);
         this.jumpSound = Gdx.audio.newSound(Gdx.files.internal("jump.ogg"));
