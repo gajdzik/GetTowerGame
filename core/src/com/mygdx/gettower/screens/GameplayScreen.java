@@ -21,16 +21,11 @@ import com.mygdx.gettower.tables.Highscore;
 import com.mygdx.gettower.tables.HighscoreArray;
 
 // TODO: ADD TRUE counter of platforms and change counting scores
-// TODO: ADD RANKING
 // TODO: ADD RANDOM SIZE OF PLATFORM (EG. 50-200)
 // TODO: REFACTOR AND BETTER LOOK
 
 public class GameplayScreen extends AbstractScreen
 {
-    private static final String PREF_GAME = "GAJDZINSKI.GAME";
-    private static final String PREF_BEST_SCORE = "GAJDZINSKI.BEST_SCORE";
-    protected static final String PREF_AVATAR = "GAJDZINSKI.DESKA";
-
     private Player player;
     private Button leftButton;
     private Button rightButton;
@@ -52,7 +47,6 @@ public class GameplayScreen extends AbstractScreen
     private BitmapFont name_right;
     private double acceleration;
     private boolean acceleration_flag;
-    private Preferences prefs;
     private Highscore highscore;
     private FileHandle file_handle;
     private Json json;
@@ -82,7 +76,6 @@ public class GameplayScreen extends AbstractScreen
         name_right = new BitmapFont();
         acceleration = 0.5;
         acceleration_flag = true;
-        prefs = Gdx.app.getPreferences(PREF_GAME);
         best_score = prefs.getInteger(PREF_BEST_SCORE);
         time = 0;
         highscore = new Highscore(0,0,0);
@@ -164,6 +157,16 @@ public class GameplayScreen extends AbstractScreen
 
     private void initPlayer()
     {
+        try
+        {
+            prefs.getString(PREF_AVATAR);
+        }
+        catch ( NullPointerException e)
+        {
+            prefs.putString(PREF_AVATAR, "player2.png");
+            prefs.flush();
+        }
+
         player = new Player(prefs.getString(PREF_AVATAR));
         stage.addActor(player);
     }

@@ -1,6 +1,7 @@
 package com.mygdx.gettower.screens;
 
         import com.badlogic.gdx.Gdx;
+        import com.badlogic.gdx.Preferences;
         import com.badlogic.gdx.Screen;
         import com.badlogic.gdx.graphics.GL20;
         import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -14,12 +15,16 @@ package com.mygdx.gettower.screens;
 
 public abstract class AbstractScreen implements Screen
 {
+    protected static final String PREF_GAME = "GAJDZINSKI.GAME";
+    protected static final String PREF_BEST_SCORE = "GAJDZINSKI.BEST_SCORE";
+    protected static final String PREF_AVATAR = "GAJDZINSKI.DESKA";
 
     protected GetTowerGameClass game;
     protected Stage stage;
     private OrthographicCamera camera;
     protected SpriteBatch spriteBatch;
     protected Skin skin;
+    protected Preferences prefs;
 
     public AbstractScreen(GetTowerGameClass game)
     {
@@ -29,6 +34,7 @@ public abstract class AbstractScreen implements Screen
         stage = new Stage(new StretchViewport(GetTowerGameClass.WIDTH,GetTowerGameClass.HEIGHT,getCamera()));
         spriteBatch = new SpriteBatch();
         Gdx.input.setInputProcessor(stage);
+        prefs = Gdx.app.getPreferences(PREF_GAME);
         init();
     }
 

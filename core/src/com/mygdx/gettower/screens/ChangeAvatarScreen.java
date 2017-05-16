@@ -1,18 +1,16 @@
 package com.mygdx.gettower.screens;
 
-//      TODO: ADD ANDROID AND ICYTOWER AVATARS
-
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.gettower.GetTowerGameClass;
 
 public class ChangeAvatarScreen extends AbstractScreen {
 
     private SelectBox select_box;
+    private TextButton return_button;
 
     public ChangeAvatarScreen(final GetTowerGameClass game)
     {
@@ -21,25 +19,49 @@ public class ChangeAvatarScreen extends AbstractScreen {
 
     @Override
     protected void init() {
+
+        return_button = new TextButton("RETURN",skin);
+        setButton(return_button, 300, 60, 100, 50);
+        return_button.addListener(new ClickListener()
+        {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
+            {
+                game.setScreen(new MenuScreen(game));
+                return super.touchDown(event, x, y, pointer, button);
+            }
+        });
+
         select_box = new SelectBox(skin.get("big", SelectBox.SelectBoxStyle.class));
         stage.addActor(select_box);
         select_box.setPosition(100,300);
         select_box.setSize(300,50);
-        select_box.setItems("Deska", "Android", "Icy Tower");
+        select_box.setItems("Deska", "Tux", "Icy Tower");
         select_box.setSelected("Deska");
         select_box.addListener(new ClickListener()
         {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
             {
-                //select_box.showList();
 
-                // TODO: CHANGE AVATAR IF PICKED
+                // TODO: Show avatars when picked
+                if ( select_box.getSelected() == "Deska" )
+                {
+                    prefs.putString(PREF_AVATAR, "player2.png");
+                    prefs.flush();
+                }
+                else if (select_box.getSelected() == "Tux")
+                {
+                    prefs.putString(PREF_AVATAR, "tux.png");
+                    prefs.flush();
+                }
+                else
+                {
+                    prefs.putString(PREF_AVATAR, "icytower.png");
+                    prefs.getString(PREF_AVATAR);
+                    prefs.flush();
+                }
 
-                //prefs.putString(PREF_AVATAR, "player2.png");
-                //prefs.flush();
-
-                System.out.println(select_box.getSelected());
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
