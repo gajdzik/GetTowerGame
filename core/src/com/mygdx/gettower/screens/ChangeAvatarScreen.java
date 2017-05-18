@@ -1,7 +1,11 @@
 package com.mygdx.gettower.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -11,6 +15,7 @@ public class ChangeAvatarScreen extends AbstractScreen {
 
     private SelectBox select_box;
     private TextButton return_button;
+    private Image avatar_image;
 
     public ChangeAvatarScreen(final GetTowerGameClass game)
     {
@@ -38,34 +43,36 @@ public class ChangeAvatarScreen extends AbstractScreen {
         select_box.setSize(300,50);
         select_box.setItems("Deska", "Tux", "Icy Tower");
         select_box.setSelected("Deska");
-        select_box.addListener(new ClickListener()
-        {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
-            {
 
-                // TODO: Show avatars when picked
+        select_box.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
                 if ( select_box.getSelected() == "Deska" )
                 {
                     prefs.putString(PREF_AVATAR, "player2.png");
-                    prefs.flush();
                 }
                 else if (select_box.getSelected() == "Tux")
                 {
                     prefs.putString(PREF_AVATAR, "tux.png");
-                    prefs.flush();
                 }
                 else
                 {
                     prefs.putString(PREF_AVATAR, "icytower.png");
-                    prefs.getString(PREF_AVATAR);
-                    prefs.flush();
                 }
+                prefs.flush();
 
-                return super.touchDown(event, x, y, pointer, button);
+                avatar_image.remove();
+                avatar_image = new Image(new Texture(prefs.getString(PREF_AVATAR)));
+                avatar_image.setPosition(200,400);
+                avatar_image.setSize(100,200);
+                stage.addActor(avatar_image);
             }
         });
 
+        avatar_image = new Image(new Texture(prefs.getString(PREF_AVATAR)));
+        avatar_image.setPosition(200,400);
+        avatar_image.setSize(100,200);
+        stage.addActor(avatar_image);
     }
 
     @Override
