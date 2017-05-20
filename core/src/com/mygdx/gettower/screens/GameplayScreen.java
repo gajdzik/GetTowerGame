@@ -51,6 +51,7 @@ public class GameplayScreen extends AbstractScreen
     private FileHandle file_handle;
     private Json json;
     private HighscoreArray highscore_array;
+    private float acce;
 
     public GameplayScreen(GetTowerGameClass game)
     {
@@ -92,6 +93,7 @@ public class GameplayScreen extends AbstractScreen
         }
 
         start_timer();
+        acce = 0;
 
     }
 
@@ -175,6 +177,18 @@ public class GameplayScreen extends AbstractScreen
     public void render(float delta)
     {
         super.render(delta);
+
+        if  (acce + 1 < Gdx.input.getAccelerometerX() )
+        {
+            player.goLeft();
+            acce = Gdx.input.getAccelerometerX();
+        }
+        else if ( acce - 1 > Gdx.input.getAccelerometerX() )
+        {
+            player.goRight();
+            acce = Gdx.input.getAccelerometerX();
+        }
+
         update();
         spriteBatch.begin();
         stage.draw();
