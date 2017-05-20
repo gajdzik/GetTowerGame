@@ -42,7 +42,19 @@ public class ChangeAvatarScreen extends AbstractScreen {
         select_box.setPosition(100,300);
         select_box.setSize(300,50);
         select_box.setItems("Deska", "Tux", "Icy Tower");
-        select_box.setSelected("Deska");
+
+        if ( prefs.getString(PREF_AVATAR) == "player2.png" )
+        {
+            select_box.setSelected("Deska");
+        }
+        else if ( prefs.getString(PREF_AVATAR) == "tux.png" )
+        {
+            select_box.setSelected("Tux");
+        }
+        else
+        {
+            select_box.setSelected("Icy Tower");
+        }
 
         select_box.addListener(new ChangeListener() {
             @Override
