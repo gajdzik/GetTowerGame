@@ -55,7 +55,6 @@ public class TopScoresScreen extends AbstractScreen {
         });
     }
 
-    // TODO: use Label instead of BitMapfont in every screen
     private void init_labels()
     {
         if (name == "score")
@@ -92,9 +91,7 @@ public class TopScoresScreen extends AbstractScreen {
     public void render(float delta)
     {
         super.render(delta);
-        spriteBatch.begin();
         stage.draw();
-        spriteBatch.end();
     }
     
     private void search_best_scores(String name)

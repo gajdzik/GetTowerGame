@@ -87,9 +87,7 @@ public class RankingMenuScreen extends AbstractScreen {
     public void render(float delta)
     {
         super.render(delta);
-        spriteBatch.begin();
         stage.draw();
-        spriteBatch.end();
     }
 
     @Override
