@@ -3,11 +3,12 @@ package com.mygdx.gettower.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
@@ -39,12 +40,9 @@ public class GameplayScreen extends AbstractScreen
     private int score;
     private int best_score;
     private int time;
-    private BitmapFont name_time;
-    private BitmapFont name_score;
-    private BitmapFont name_best_score;
-    private BitmapFont name_left;
-    private BitmapFont name_jump;
-    private BitmapFont name_right;
+    private Label name_time;
+    private Label name_score;
+    private Label name_best_score;
     private double acceleration;
     private boolean acceleration_flag;
     private Highscore highscore;
@@ -69,16 +67,22 @@ public class GameplayScreen extends AbstractScreen
         music.play();
         score_height = 210;
         score = 0;
-        name_time = new BitmapFont();
-        name_score = new BitmapFont();
-        name_best_score = new BitmapFont();
-        name_left = new BitmapFont();
-        name_jump = new BitmapFont();
-        name_right = new BitmapFont();
-        acceleration = 0.5;
-        acceleration_flag = true;
         best_score = prefs.getInteger(PREF_BEST_SCORE);
         time = 0;
+        name_time = new Label(String.valueOf(time),skin.get("title",LabelStyle.class));
+        name_time.setPosition(320,camera_stay+390);
+        name_time.setFontScale(0.5f);
+        stage.addActor(name_time);
+        name_score = new Label(String.valueOf(score),skin.get("title",LabelStyle.class));
+        name_score.setPosition(320,camera_stay+420);
+        name_score.setFontScale(0.5f);
+        stage.addActor(name_score);
+        name_best_score = new Label(String.valueOf(best_score),skin.get("title",LabelStyle.class));
+        name_best_score.setPosition(320,camera_stay+450);
+        name_best_score.setFontScale(0.5f);
+        stage.addActor(name_best_score);
+        acceleration = 0.5;
+        acceleration_flag = true;
         highscore = new Highscore(0,0,0);
         file_handle = Gdx.files.local("highscores.json");
         json = new Json();
@@ -192,18 +196,8 @@ public class GameplayScreen extends AbstractScreen
         }
 
         update();
-        spriteBatch.begin();
         stage.draw();
-        spriteBatch.end();
-        spriteBatch.begin();
-        name_time.draw(spriteBatch, "Your time: " + String.valueOf(time),350,camera_stay+390);
-        name_score.draw(spriteBatch, "Your score: " + String.valueOf(score),350,camera_stay+420);
-        name_best_score.draw(spriteBatch, "Best score: " + String.valueOf(best_score),350,camera_stay+450);
-        name_left.draw(spriteBatch, "LEFT",50,camera_stay-100);
-        name_jump.draw(spriteBatch, "JUMP",220,camera_stay-100);
-        name_right.draw(spriteBatch, "RIGHT",380,camera_stay-100);
 
-        spriteBatch.end();
         if(isEndGame())
         {
             highscore.setPlatform(score);
@@ -225,6 +219,14 @@ public class GameplayScreen extends AbstractScreen
         updateButtons();
         updatePlatforms();
         updateCamera();
+        name_time.setText("Your time: "+time);
+        name_time.setPosition(320,camera_stay+390);
+
+        name_score.setText("Your score: "+score);
+        name_score.setPosition(320,camera_stay+420);
+
+        name_best_score.setText("Best score: "+best_score);
+        name_best_score.setPosition(320,camera_stay+450);
         stage.act();
     }
 
@@ -367,9 +369,6 @@ public class GameplayScreen extends AbstractScreen
     public void dispose()
     {
         music.dispose();
-        name_time.dispose();
-        name_score.dispose();
-        name_best_score.dispose();
     }
 
 }
