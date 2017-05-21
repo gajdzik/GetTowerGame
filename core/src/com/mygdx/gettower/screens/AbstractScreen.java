@@ -17,6 +17,7 @@ public abstract class AbstractScreen implements Screen
 {
     protected static final String PREF_GAME = "GAJDZINSKI.GAME";
     protected static final String PREF_AVATAR = "GAJDZINSKI.DESKA";
+    protected static final String PREF_LEVEL = "GAJDZINSKI.LEVEL";
 
     protected GetTowerGameClass game;
     protected Stage stage;

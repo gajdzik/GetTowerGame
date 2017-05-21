@@ -54,6 +54,8 @@ public class ChangeAvatarScreen extends AbstractScreen {
         else
         {
             select_box.setSelected("Icy Tower");
+            prefs.putString(PREF_AVATAR, "icytower.png");
+            prefs.flush();
         }
 
         select_box.addListener(new ChangeListener() {
