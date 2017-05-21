@@ -22,14 +22,11 @@ import com.mygdx.gettower.tables.HighscoreArray;
 
 import java.util.Random;
 
-// TODO: ADD TRUE counter of platforms and change counting scores
-// TODO: REFACTOR AND BETTER LOOK
-
 public class GameplayScreen extends AbstractScreen
 {
     private Player player;
-    private Button leftButton;
-    private Button rightButton;
+   // private Button leftButton;
+   // private Button rightButton;
     private Button jumpButton;
     private Platform start_platform;
     private Array<Platform> platform_array;
@@ -135,6 +132,7 @@ public class GameplayScreen extends AbstractScreen
 
     private void initButtons()
     {
+        /*
         leftButton = new Button(new ButtonStyle());
         setButton(leftButton, 160, 120, 0, -90);
         leftButton.setDebug(true);
@@ -159,7 +157,7 @@ public class GameplayScreen extends AbstractScreen
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
-
+*/
         jumpButton = new Button(new ButtonStyle());
         setButton(jumpButton, 160, 120, 161, -90);
         jumpButton.addListener(new ClickListener()
@@ -308,9 +306,11 @@ public class GameplayScreen extends AbstractScreen
 
     private void updateButtons()
     {
-        setButton(leftButton, 160, 120, 0, Math.round(camera_stay-150));
-        setButton(rightButton, 160, 120, 322, Math.round(camera_stay-150));
-        setButton(jumpButton, 160, 120, 161, Math.round(camera_stay-150));
+      //  setButton(leftButton, 160, 120, 0, Math.round(camera_stay-150));
+      //  setButton(rightButton, 160, 120, 322, Math.round(camera_stay-150));
+      //  setButton(jumpButton, 160, 120, 161, Math.round(camera_stay-150));
+        setButton(jumpButton, 480, 700, 0, Math.round(camera_stay-150));
+
     }
 
     private void fall()
