@@ -19,8 +19,9 @@ import com.mygdx.gettower.GetTowerGameClass;
 import com.mygdx.gettower.tables.Highscore;
 import com.mygdx.gettower.tables.HighscoreArray;
 
+import java.util.Random;
+
 // TODO: ADD TRUE counter of platforms and change counting scores
-// TODO: ADD RANDOM SIZE OF PLATFORM (EG. 50-200)
 // TODO: REFACTOR AND BETTER LOOK
 
 public class GameplayScreen extends AbstractScreen
@@ -104,12 +105,14 @@ public class GameplayScreen extends AbstractScreen
         stage.addActor(start_platform);
 
         platform_array = new Array<Platform>();
+        Random generator = new Random();
 
         for (; platform_counter<10; platform_counter++)
         {
             int x = MathUtils.random(0, 280);
             int y = 150 * platform_counter + 30;
             Platform platform = new Platform("platform.png",200,30);
+            platform.setSize(generator.nextInt(50)+100,30);
             platform.setPosition(x, y);
             platform_array.add(platform);
             stage.addActor(platform_array.get(platform_counter-1));
