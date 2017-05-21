@@ -62,25 +62,14 @@ public class GameplayScreen extends AbstractScreen
         initPlatforms();
         initButtons();
         initPlayer();
+        initLabels();
         camera_stay = player.getY();
         music = Gdx.audio.newMusic(Gdx.files.internal("music.ogg"));
         music.play();
         score_height = 210;
         score = 0;
-        best_score = prefs.getInteger(PREF_BEST_SCORE);
+        best_score = 0;
         time = 0;
-        name_time = new Label(String.valueOf(time),skin.get("title",LabelStyle.class));
-        name_time.setPosition(320,camera_stay+390);
-        name_time.setFontScale(0.5f);
-        stage.addActor(name_time);
-        name_score = new Label(String.valueOf(score),skin.get("title",LabelStyle.class));
-        name_score.setPosition(320,camera_stay+420);
-        name_score.setFontScale(0.5f);
-        stage.addActor(name_score);
-        name_best_score = new Label(String.valueOf(best_score),skin.get("title",LabelStyle.class));
-        name_best_score.setPosition(320,camera_stay+450);
-        name_best_score.setFontScale(0.5f);
-        stage.addActor(name_best_score);
         acceleration = 0.5;
         acceleration_flag = true;
         highscore = new Highscore(0,0,0);
@@ -88,17 +77,38 @@ public class GameplayScreen extends AbstractScreen
         json = new Json();
         highscore_array = new HighscoreArray();
         if (file_handle.length() > 0)
-            highscore_array = json.fromJson(highscore_array.getClass(), file_handle.readString());
-
-        // JUST FOR TESTS
-        for (Highscore hs : highscore_array.getArray_highscore())
         {
-            System.out.print("platform = "+hs.getPlatform()+" score = "+hs.getScore()+" time = "+ hs.getTime()+"\n");
+            highscore_array = json.fromJson(highscore_array.getClass(), file_handle.readString());
+            for (Highscore hs : highscore_array.getArray_highscore())
+            {
+                if (hs.getScore() > best_score)
+                    best_score = hs.getScore();
+
+                // JUST FOR TESTS
+                System.out.print("platform = "+hs.getPlatform()+" score = "+hs.getScore()+" time = "+ hs.getTime()+"\n");
+            }
         }
+        initLabels();
 
         start_timer();
         acce = 0;
 
+    }
+
+    private void initLabels()
+    {
+        name_time = new Label(String.valueOf(time),skin.get("title",LabelStyle.class));
+        name_time.setPosition(-100,-100);
+        name_time.setFontScale(0.5f);
+        stage.addActor(name_time);
+        name_score = new Label(String.valueOf(score),skin.get("title",LabelStyle.class));
+        name_score.setPosition(-100,-100);
+        name_score.setFontScale(0.5f);
+        stage.addActor(name_score);
+        name_best_score = new Label(String.valueOf(best_score),skin.get("title",LabelStyle.class));
+        name_best_score.setPosition(-100,-100);
+        name_best_score.setFontScale(0.5f);
+        stage.addActor(name_best_score);
     }
 
     private void initPlatforms()
@@ -219,6 +229,13 @@ public class GameplayScreen extends AbstractScreen
         updateButtons();
         updatePlatforms();
         updateCamera();
+        updateLabels();
+
+        stage.act();
+    }
+
+    private void updateLabels()
+    {
         name_time.setText("Your time: "+time);
         name_time.setPosition(320,camera_stay+390);
 
@@ -227,36 +244,22 @@ public class GameplayScreen extends AbstractScreen
 
         name_best_score.setText("Best score: "+best_score);
         name_best_score.setPosition(320,camera_stay+450);
-        stage.act();
     }
 
     private boolean isEndGame()
     {
         if (player.getY() < camera_stay-200)
-        {
-            if (isBeatBestScore())
-            {
-                prefs.putInteger(PREF_BEST_SCORE, score);
-                prefs.flush();
-            }
             return true;
-        }
         else
-        {
             return false;
-        }
     }
 
     private boolean isBeatBestScore()
     {
         if (score > best_score)
-        {
             return true;
-        }
         else
-        {
             return false;
-        }
     }
 
     private void acceleration_camera()

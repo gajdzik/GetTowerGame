@@ -16,7 +16,6 @@ package com.mygdx.gettower.screens;
 public abstract class AbstractScreen implements Screen
 {
     protected static final String PREF_GAME = "GAJDZINSKI.GAME";
-    protected static final String PREF_BEST_SCORE = "GAJDZINSKI.BEST_SCORE";
     protected static final String PREF_AVATAR = "GAJDZINSKI.DESKA";
 
     protected GetTowerGameClass game;
