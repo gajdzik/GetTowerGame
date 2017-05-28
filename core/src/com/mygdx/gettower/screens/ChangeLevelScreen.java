@@ -37,10 +37,10 @@ public class ChangeLevelScreen extends AbstractScreen {
         select_box.setSize(300, 50);
         select_box.setItems("Easy", "Medium", "Hard");
 
-        if (prefs.getString(PREF_LEVEL) == "Easy")
+        if (prefs.getString(PREF_LEVEL).equals("Easy"))
         {
             select_box.setSelected("Easy");
-        } else if (prefs.getString(PREF_LEVEL) == "Medium")
+        } else if (prefs.getString(PREF_LEVEL).equals("Medium"))
         {
             select_box.setSelected("Medium");
         } else
@@ -53,9 +53,9 @@ public class ChangeLevelScreen extends AbstractScreen {
         select_box.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                if (select_box.getSelected() == "Easy") {
+                if (select_box.getSelected().equals("Easy")) {
                     prefs.putString(PREF_LEVEL, "Easy");
-                } else if (select_box.getSelected() == "Medium") {
+                } else if (select_box.getSelected().equals("Medium")) {
                     prefs.putString(PREF_LEVEL, "Medium");
                 } else {
                     prefs.putString(PREF_LEVEL, "Hard");

@@ -66,23 +66,23 @@ public class TopScoresScreen extends AbstractScreen {
         label_best.setPosition(100,450);
         stage.addActor(label_best);
 
-        label_first_place = new Label("First place: " + String.valueOf(first_place),skin.get("title",LabelStyle.class));
+        label_first_place = new Label("First place: " + String.valueOf(first_place),skin.get("big",LabelStyle.class));
         label_first_place.setPosition(100,390);
         stage.addActor(label_first_place);
 
-        label_second_place = new Label("Second place: " + String.valueOf(second_place),skin.get("title",LabelStyle.class));
+        label_second_place = new Label("Second place: " + String.valueOf(second_place),skin.get("big",LabelStyle.class));
         label_second_place.setPosition(100,340);
         stage.addActor(label_second_place);
 
-        label_third_place = new Label("Third place: " + String.valueOf(third_place),skin.get("title",LabelStyle.class));
+        label_third_place = new Label("Third place: " + String.valueOf(third_place),skin.get("big",LabelStyle.class));
         label_third_place.setPosition(100,290);
         stage.addActor(label_third_place);
 
-        label_fourth_place = new Label("Fourth place: " + String.valueOf(fourth_place),skin.get("title",LabelStyle.class));
+        label_fourth_place = new Label("Fourth place: " + String.valueOf(fourth_place),skin.get("big",LabelStyle.class));
         label_fourth_place.setPosition(100,240);
         stage.addActor(label_fourth_place);
 
-        label_fifth_place = new Label("Fifth place: " + String.valueOf(fifth_place),skin.get("title",LabelStyle.class));
+        label_fifth_place = new Label("Fifth place: " + String.valueOf(fifth_place),skin.get("big",LabelStyle.class));
         label_fifth_place.setPosition(100,190);
         stage.addActor(label_fifth_place);
     }

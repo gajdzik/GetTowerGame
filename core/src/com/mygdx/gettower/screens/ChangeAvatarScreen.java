@@ -43,11 +43,11 @@ public class ChangeAvatarScreen extends AbstractScreen {
         select_box.setSize(300,50);
         select_box.setItems("Deska", "Tux", "Icy Tower");
 
-        if ( prefs.getString(PREF_AVATAR) == "player2.png" )
+        if ( prefs.getString(PREF_AVATAR).equals("player2.png"))
         {
             select_box.setSelected("Deska");
         }
-        else if ( prefs.getString(PREF_AVATAR) == "tux.png" )
+        else if ( prefs.getString(PREF_AVATAR).equals("tux.png"))
         {
             select_box.setSelected("Tux");
         }
@@ -61,11 +61,11 @@ public class ChangeAvatarScreen extends AbstractScreen {
         select_box.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                if ( select_box.getSelected() == "Deska" )
+                if ( select_box.getSelected().equals("Deska"))
                 {
                     prefs.putString(PREF_AVATAR, "player2.png");
                 }
-                else if (select_box.getSelected() == "Tux")
+                else if (select_box.getSelected().equals("Tux"))
                 {
                     prefs.putString(PREF_AVATAR, "tux.png");
                 }

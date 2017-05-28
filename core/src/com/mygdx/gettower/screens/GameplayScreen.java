@@ -47,10 +47,22 @@ public class GameplayScreen extends AbstractScreen
     private Json json;
     private HighscoreArray highscore_array;
     private float acce;
+    private float speed_level;
 
     public GameplayScreen(GetTowerGameClass game)
     {
         super(game);
+        if ( prefs.getString(PREF_LEVEL) == "Easy" )
+            speed_level = 0.4f;
+        else if ( prefs.getString(PREF_LEVEL) == "Medium" )
+            speed_level = 0.5f;
+        else
+        {
+            speed_level = 0.6f;
+            prefs.putString(PREF_LEVEL,"Hard");
+            prefs.flush();
+        }
+        acceleration = speed_level;
     }
 
     @Override
@@ -67,7 +79,6 @@ public class GameplayScreen extends AbstractScreen
         score = 0;
         best_score = 0;
         time = 0;
-        acceleration = 0.5;
         acceleration_flag = true;
         highscore = new Highscore(0,0,0);
         file_handle = Gdx.files.local("highscores.json");
@@ -264,7 +275,7 @@ public class GameplayScreen extends AbstractScreen
     {
         if (score % 10 == 0 && acceleration_flag)
         {
-            acceleration += 0.5;
+            acceleration += speed_level;
             acceleration_flag = false;
         }
         else if (score % 10 != 0)
