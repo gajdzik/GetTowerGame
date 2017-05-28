@@ -35,7 +35,7 @@ public class Player extends Image
         }
         else
         {
-            Action goLeftAction = Actions.moveBy(-25,0,0.2f);
+            Action goLeftAction = Actions.moveBy(-35,0,0.2f);
             this.addAction(goLeftAction);
         }
     }
@@ -48,7 +48,7 @@ public class Player extends Image
         }
         else
         {
-            Action goRightAction = Actions.moveBy(25,0, 0.2f);
+            Action goRightAction = Actions.moveBy(35,0, 0.2f);
             this.addAction(goRightAction);
         }
     }
